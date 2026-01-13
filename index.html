@@ -1,0 +1,2278 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MeerAzad - Premium Islamic Literature</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --color-bg-primary: #ffffff;
+      --color-bg-secondary: #f8f6f3;
+      --color-text-primary: #1a1a1a;
+      --color-text-secondary: #666666;
+      --color-accent-primary: #8b7355;
+      --color-accent-gold: #c9a961;
+      --color-border: #e5e3df;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--color-bg-primary);
+      color: var(--color-text-primary);
+      line-height: 1.6;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    
+    .font-display {
+      font-family: 'Playfair Display', serif;
+    }
+    
+    /* Navigation */
+    .navbar {
+      background: var(--color-bg-primary);
+      border-bottom: 1px solid var(--color-border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.95);
+    }
+    
+    .navbar.scrolled {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+    
+    .nav-link {
+      color: var(--color-text-primary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      transition: all 0.3s ease;
+      position: relative;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--color-accent-gold);
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+    
+    .nav-link:hover::after {
+      width: 80%;
+    }
+    
+    /* Cart Badge */
+    .cart-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--color-accent-gold);
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    /* Language Selector */
+    .language-selector {
+      position: relative;
+    }
+    
+    .language-btn {
+      background: transparent;
+      border: 1px solid var(--color-border);
+      color: var(--color-text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .language-btn:hover {
+      border-color: var(--color-accent-gold);
+      background: var(--color-bg-secondary);
+    }
+    
+    .language-dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 0.5rem;
+      background: var(--color-bg-primary);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      min-width: 180px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    
+    .language-dropdown.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    
+    .language-option {
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.9rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+    
+    .language-option:last-child {
+      border-bottom: none;
+    }
+    
+    .language-option:hover {
+      background: var(--color-bg-secondary);
+      color: var(--color-accent-gold);
+    }
+    
+    .language-option.active {
+      background: var(--color-accent-gold);
+      color: white;
+    }
+    
+    /* Buttons */
+    .btn-primary {
+      background: var(--color-accent-primary);
+      color: white;
+      padding: 1rem 2.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.4s ease;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+    
+    .btn-primary:hover {
+      background: var(--color-accent-gold);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(139, 115, 85, 0.3);
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: var(--color-accent-primary);
+      border: 2px solid var(--color-accent-primary);
+      padding: 0.875rem 2rem;
+      border-radius: 4px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    
+    .btn-secondary:hover {
+      background: var(--color-accent-primary);
+      color: white;
+      transform: translateY(-2px);
+    }
+    
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(135deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-pattern {
+      position: absolute;
+      inset: 0;
+      opacity: 0.03;
+      background-image: 
+        repeating-linear-gradient(45deg, var(--color-text-primary) 0, var(--color-text-primary) 1px, transparent 0, transparent 50%),
+        repeating-linear-gradient(-45deg, var(--color-text-primary) 0, var(--color-text-primary) 1px, transparent 0, transparent 50%);
+      background-size: 30px 30px;
+    }
+    
+    .badge {
+      display: inline-block;
+      background: var(--color-accent-gold);
+      color: white;
+      padding: 0.5rem 1.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    
+    /* 3D Product Cards */
+    .product-card-3d {
+      background: var(--color-bg-primary);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 2.5rem;
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      position: relative;
+      transform-style: preserve-3d;
+      cursor: pointer;
+    }
+    
+    .product-card-3d::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--color-accent-gold), var(--color-accent-primary));
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      border-radius: 8px;
+      z-index: -1;
+    }
+    
+    .product-card-3d:hover {
+      transform: translateY(-15px) rotateX(5deg);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+    }
+    
+    .product-card-3d:hover::before {
+      opacity: 0.05;
+    }
+    
+    .book-image-container {
+      width: 100%;
+      height: 250px;
+      margin-bottom: 1.5rem;
+    }
+    
+    /* Cart Sidebar */
+    .cart-sidebar {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      max-width: 450px;
+      height: 100%;
+      background: var(--color-bg-primary);
+      box-shadow: -5px 0 30px rgba(0, 0, 0, 0.2);
+      z-index: 250;
+      transition: right 0.4s ease;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .cart-sidebar.active {
+      right: 0;
+    }
+    
+    .cart-item {
+      display: flex;
+      gap: 1rem;
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--color-border);
+      align-items: center;
+    }
+    
+    .cart-item-image {
+      width: 80px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 4px;
+      background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-gold));
+    }
+    
+    .quantity-control {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      padding: 0.25rem;
+    }
+    
+    .quantity-btn {
+      background: transparent;
+      border: none;
+      color: var(--color-text-primary);
+      cursor: pointer;
+      padding: 0.25rem 0.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    
+    .quantity-btn:hover {
+      color: var(--color-accent-gold);
+    }
+    
+    /* Payment Modal */
+    .payment-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 300;
+      padding: 1rem;
+    }
+    
+    .payment-modal.active {
+      display: flex;
+    }
+    
+    .payment-content {
+      background: var(--color-bg-primary);
+      border-radius: 12px;
+      max-width: 500px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+    
+    .payment-method {
+      padding: 1.25rem;
+      border: 2px solid var(--color-border);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .payment-method:hover {
+      border-color: var(--color-accent-gold);
+      background: var(--color-bg-secondary);
+    }
+    
+    .payment-method.selected {
+      border-color: var(--color-accent-gold);
+      background: var(--color-bg-secondary);
+    }
+    
+    .payment-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-gold));
+      color: white;
+    }
+    
+    /* Product Details Modal */
+    .product-details-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 300;
+      padding: 1rem;
+    }
+    
+    .product-details-modal.active {
+      display: flex;
+    }
+    
+    .product-details-content {
+      background: var(--color-bg-primary);
+      border-radius: 12px;
+      max-width: 900px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+    
+    .cover-option {
+      padding: 1rem;
+      border: 2px solid var(--color-border);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+    
+    .cover-option:hover {
+      border-color: var(--color-accent-gold);
+      background: var(--color-bg-secondary);
+    }
+    
+    .cover-option.selected {
+      border-color: var(--color-accent-gold);
+      background: var(--color-bg-secondary);
+    }
+    
+    .in-stock-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      background: #e8f5e9;
+      color: #2e7d32;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    
+    .in-stock-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4caf50;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    /* Order Tracking */
+    .tracking-timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+    
+    .tracking-timeline::before {
+      content: '';
+      position: absolute;
+      left: 0.5rem;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--color-border);
+    }
+    
+    .tracking-step {
+      position: relative;
+      padding-bottom: 2rem;
+    }
+    
+    .tracking-step::before {
+      content: '';
+      position: absolute;
+      left: -1.5rem;
+      top: 0;
+      width: 1rem;
+      height: 1rem;
+      border-radius: 50%;
+      background: var(--color-border);
+      border: 3px solid var(--color-bg-primary);
+    }
+    
+    .tracking-step.completed::before {
+      background: var(--color-accent-gold);
+    }
+    
+    .tracking-step.active::before {
+      background: var(--color-accent-primary);
+      animation: pulse-tracking 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse-tracking {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(139, 115, 85, 0.7); }
+      50% { box-shadow: 0 0 0 10px rgba(139, 115, 85, 0); }
+    }
+    
+    /* Feature Cards */
+    .feature-card {
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 2.5rem;
+      text-align: center;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, var(--color-accent-gold), transparent);
+      opacity: 0.1;
+      transition: left 0.6s ease;
+    }
+    
+    .feature-card:hover::before {
+      left: 100%;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+      border-color: var(--color-accent-gold);
+    }
+    
+    /* Stats Section */
+    .stats-card {
+      background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-gold));
+      color: white;
+      border-radius: 8px;
+      padding: 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .stats-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: pulse 4s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+    }
+    
+    /* Decorative Line */
+    .decorative-line {
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--color-accent-gold), transparent);
+      margin: 1.5rem auto;
+    }
+    
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    .animate-fade-in {
+      animation: fadeInUp 1s ease-out forwards;
+    }
+    
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .delay-1 { animation-delay: 0.1s; opacity: 0; }
+    .delay-2 { animation-delay: 0.2s; opacity: 0; }
+    .delay-3 { animation-delay: 0.3s; opacity: 0; }
+    .delay-4 { animation-delay: 0.4s; opacity: 0; }
+    
+    /* Mobile Menu */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      max-width: 400px;
+      height: 100%;
+      background: var(--color-bg-primary);
+      box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+      z-index: 200;
+      transition: right 0.4s ease;
+      overflow-y: auto;
+      padding: 2rem;
+    }
+    
+    .mobile-menu.active {
+      right: 0;
+    }
+    
+    .mobile-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 150;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .mobile-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    /* Form Inputs */
+    .form-input {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      border: 2px solid var(--color-border);
+      border-radius: 4px;
+      background: var(--color-bg-primary);
+      color: var(--color-text-primary);
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: var(--color-accent-gold);
+    }
+    
+    /* Newsletter */
+    .newsletter-input {
+      flex: 1;
+      padding: 1rem 1.5rem;
+      border: 2px solid var(--color-border);
+      border-radius: 4px;
+      background: var(--color-bg-primary);
+      color: var(--color-text-primary);
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    .newsletter-input:focus {
+      outline: none;
+      border-color: var(--color-accent-gold);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .desktop-nav { display: none; }
+      .mobile-menu-btn { display: block; }
+      
+      .section-title {
+        font-size: 2rem;
+        line-height: 1.2;
+      }
+      
+      .section-subtitle {
+        font-size: 1rem;
+        padding: 0 1rem;
+      }
+      
+      .hero-section {
+        padding: 3rem 1.5rem;
+      }
+      
+      .btn-primary, .btn-secondary {
+        padding: 0.875rem 1.5rem;
+        font-size: 0.9rem;
+        width: 100%;
+      }
+      
+      .product-card-3d {
+        padding: 1.5rem;
+      }
+      
+      .product-card-3d:hover {
+        transform: translateY(-5px);
+      }
+      
+      .book-image-container {
+        height: 220px;
+      }
+      
+      .cart-sidebar {
+        max-width: 100%;
+      }
+      
+      .payment-content, .product-details-content {
+        margin: 0.5rem;
+        max-height: calc(100vh - 1rem);
+      }
+      
+      .feature-card {
+        padding: 1.5rem;
+      }
+      
+      .stats-card {
+        padding: 2rem 1.5rem;
+      }
+      
+      .newsletter-input {
+        width: 100%;
+      }
+      
+      #cookieConsent {
+        padding: 1rem;
+      }
+      
+      #cookieConsent .flex {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      #cookieConsent .btn-primary,
+      #cookieConsent .btn-secondary {
+        width: 100%;
+        text-align: center;
+      }
+      
+      .grid {
+        gap: 2rem;
+      }
+      
+      .tracking-timeline {
+        padding-left: 1.5rem;
+      }
+      
+      .payment-method {
+        padding: 1rem;
+      }
+      
+      .payment-icon {
+        width: 40px;
+        height: 40px;
+      }
+      
+      .cart-item {
+        padding: 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .cart-item-image {
+        width: 100%;
+        height: 150px;
+        margin-bottom: 1rem;
+      }
+      
+      .quantity-control {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+    
+    @media (min-width: 769px) {
+      .mobile-menu-btn { display: none; }
+    }
+    
+    @media (max-width: 480px) {
+      .section-title {
+        font-size: 1.75rem;
+      }
+      
+      .badge {
+        font-size: 0.65rem;
+        padding: 0.4rem 1rem;
+        letter-spacing: 1px;
+      }
+      
+      .navbar {
+        padding: 0.75rem 0;
+      }
+      
+      .nav-link {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.5rem;
+      }
+      
+      .language-btn {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.75rem;
+      }
+      
+      .hero-section {
+        padding: 2.5rem 1rem;
+      }
+      
+      .product-card-3d h4 {
+        font-size: 1.5rem;
+      }
+      
+      .book-image-container {
+        height: 200px;
+      }
+      
+      .feature-card {
+        padding: 1.25rem;
+      }
+      
+      .feature-card h4 {
+        font-size: 1.1rem;
+      }
+      
+      .stats-card {
+        padding: 1.5rem 1rem;
+      }
+      
+      .stats-card h3 {
+        font-size: 2rem;
+      }
+      
+      .stats-card p:nth-child(2) {
+        font-size: 3rem;
+      }
+      
+      .form-input {
+        font-size: 0.95rem;
+        padding: 0.75rem;
+      }
+      
+      .payment-method {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+      }
+      
+      .payment-icon {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 0.5rem;
+      }
+      
+      #successToast {
+        bottom: 1rem;
+        right: 1rem;
+        left: 1rem;
+        padding: 0.875rem 1.5rem;
+        font-size: 0.9rem;
+      }
+    }
+    
+    @media (max-width: 360px) {
+      .section-title {
+        font-size: 1.5rem;
+      }
+      
+      .navbar h1 {
+        font-size: 1.5rem;
+      }
+      
+      .navbar p {
+        font-size: 0.7rem;
+      }
+      
+      .btn-primary, .btn-secondary {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.85rem;
+      }
+      
+      .book-image-container {
+        height: 180px;
+      }
+    }
+    
+    /* Section Titles */
+    .section-title {
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 1rem;
+    }
+    
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: var(--color-text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    /* Loading Spinner */
+    .spinner {
+      border: 3px solid var(--color-border);
+      border-top: 3px solid var(--color-accent-gold);
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .btn-loading {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+    
+    @keyframes slideUp {
+      from {
+        transform: translateY(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    .fixed-bottom-actions {
+      position: sticky;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--color-bg-primary);
+      border-top: 2px solid var(--color-border);
+      padding: 1.5rem 2rem;
+      display: flex;
+      gap: 1rem;
+      box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+ </head>
+ <body class="h-full">
+  <div id="app" class="w-full h-full overflow-auto"><!-- Mobile Overlay -->
+   <div id="mobileOverlay" class="mobile-overlay" onclick="closeMobileMenu(); closeCart(); closeAllModals();"></div><!-- Navigation -->
+   <nav class="navbar w-full">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+     <div class="flex justify-between items-center">
+      <div>
+       <h1 id="brand-name" class="font-display text-2xl font-bold" style="color: var(--color-accent-primary);">MeerAzad</h1>
+       <p id="brand-tagline" class="text-xs" style="color: var(--color-text-secondary);">Premium Islamic Literature</p>
+      </div>
+      <div class="desktop-nav flex items-center gap-8"><a href="#hero" class="nav-link" data-translate="nav_home">Home</a> <a href="#collections" class="nav-link" data-translate="nav_collections">Collections</a> <a href="#about" class="nav-link" data-translate="nav_about">About</a> <a href="#contact" class="nav-link" data-translate="nav_contact">Contact</a>
+      </div>
+      <div class="flex items-center gap-4">
+       <div class="language-selector"><button class="language-btn" onclick="toggleLanguageDropdown()"> <span id="currentLanguage">English</span>
+         <svg width="12" height="8" viewbox="0 0 12 8" fill="currentColor"><path d="M1 1L6 6L11 1" />
+         </svg></button>
+        <div id="languageDropdown" class="language-dropdown">
+         <div class="language-option active" onclick="selectLanguage('English', 'en')">
+          English
+         </div>
+         <div class="language-option" onclick="selectLanguage('اردو', 'ur')">
+          اردو (Urdu)
+         </div>
+         <div class="language-option" onclick="selectLanguage('العربية', 'ar')">
+          العربية (Arabic)
+         </div>
+        </div>
+       </div><button class="nav-link" onclick="openTrackingModal()" data-translate="track_order">Track Order</button> <button class="nav-link relative" onclick="openCart()"> <span data-translate="nav_cart">Cart</span> <span id="cart-badge" class="cart-badge" style="display: none;">0</span> </button> <button class="mobile-menu-btn nav-link" onclick="openMobileMenu()">Menu</button>
+      </div>
+     </div>
+    </div>
+   </nav><!-- Mobile Menu -->
+   <div id="mobileMenu" class="mobile-menu">
+    <div class="flex justify-between items-center mb-8">
+     <h2 class="font-display text-xl font-bold" style="color: var(--color-accent-primary);">Menu</h2><button class="text-2xl" onclick="closeMobileMenu()" style="color: var(--color-text-primary);">✕</button>
+    </div>
+    <div class="flex flex-col gap-4"><a href="#hero" class="nav-link text-lg" onclick="closeMobileMenu()" data-translate="nav_home">Home</a> <a href="#collections" class="nav-link text-lg" onclick="closeMobileMenu()" data-translate="nav_collections">Collections</a> <a href="#about" class="nav-link text-lg" onclick="closeMobileMenu()" data-translate="nav_about">About</a> <a href="#contact" class="nav-link text-lg" onclick="closeMobileMenu()" data-translate="nav_contact">Contact</a>
+     <hr style="border-color: var(--color-border); margin: 1rem 0;"><button class="nav-link text-lg text-left" onclick="closeMobileMenu(); openTrackingModal();" data-translate="track_order">Track Order</button> <button class="nav-link text-lg text-left" onclick="closeMobileMenu(); openCart();" data-translate="nav_cart">Cart</button>
+    </div>
+   </div><!-- Product Details Modal -->
+   <div id="productDetailsModal" class="product-details-modal">
+    <div class="product-details-content">
+     <div style="padding: 2rem; border-bottom: 1px solid var(--color-border);">
+      <div class="flex justify-between items-center">
+       <h2 class="font-display text-2xl font-bold" style="color: var(--color-text-primary);">Product Details</h2><button class="text-2xl" onclick="closeProductDetails()" style="color: var(--color-text-primary);">✕</button>
+      </div>
+     </div>
+     <div id="productDetailsBody" style="padding: 2rem;"><!-- Product details will be inserted here -->
+     </div>
+     <div class="fixed-bottom-actions"><button class="btn-secondary flex-1" onclick="addProductToCart()">Add to Cart</button> <button class="btn-primary flex-1" onclick="buyProductNow()">Buy Now</button>
+     </div>
+    </div>
+   </div><!-- Cart Sidebar -->
+   <div id="cartSidebar" class="cart-sidebar">
+    <div style="padding: 2rem; border-bottom: 1px solid var(--color-border);">
+     <div class="flex justify-between items-center">
+      <h2 class="font-display text-2xl font-bold" style="color: var(--color-text-primary);" data-translate="cart_title">Shopping Cart</h2><button class="text-2xl" onclick="closeCart()" style="color: var(--color-text-primary);">✕</button>
+     </div>
+    </div>
+    <div id="cartItems" style="flex: 1; overflow-y: auto;"></div>
+    <div style="padding: 2rem; border-top: 1px solid var(--color-border); background: var(--color-bg-secondary);">
+     <div class="flex justify-between items-center mb-4"><span class="text-lg font-semibold" data-translate="cart_total">Total:</span> <span id="cartTotal" class="text-2xl font-bold" style="color: var(--color-accent-gold);">₹0</span>
+     </div><button class="btn-primary w-full" onclick="proceedToCheckout()" id="checkoutBtn" data-translate="cart_checkout">Proceed to Checkout</button>
+    </div>
+   </div><!-- Payment Modal -->
+   <div id="paymentModal" class="payment-modal">
+    <div class="payment-content">
+     <div style="padding: 2rem; border-bottom: 1px solid var(--color-border);">
+      <div class="flex justify-between items-center">
+       <h2 class="font-display text-2xl font-bold" style="color: var(--color-text-primary);" data-translate="checkout_title">Checkout</h2><button class="text-2xl" onclick="closePaymentModal()" style="color: var(--color-text-primary);">✕</button>
+      </div>
+     </div>
+     <div style="padding: 2rem;"><!-- Customer Details -->
+      <div class="mb-6">
+       <h3 class="font-semibold text-lg mb-4" style="color: var(--color-text-primary);" data-translate="delivery_info">Delivery Information</h3>
+       <div class="space-y-4">
+        <div><label for="customerName" class="block text-sm font-medium mb-2" style="color: var(--color-text-secondary);" data-translate="full_name">Full Name</label> <input type="text" id="customerName" class="form-input" data-translate="full_name_placeholder" placeholder="Enter your full name" required>
+        </div>
+        <div><label for="customerEmail" class="block text-sm font-medium mb-2" style="color: var(--color-text-secondary);" data-translate="email">Email</label> <input type="email" id="customerEmail" class="form-input" data-translate="email_placeholder" placeholder="your.email@example.com" required>
+        </div>
+        <div><label for="customerCountry" class="block text-sm font-medium mb-2" style="color: var(--color-text-secondary);" data-translate="country">Country</label> <select id="customerCountry" class="form-input" required onchange="updatePhonePlaceholder()"> <option value="" data-translate="country_placeholder">Select your country</option> <option value="India|+91">🇮🇳 India (+91)</option> <option value="Pakistan|+92">🇵🇰 Pakistan (+92)</option> <option value="Bangladesh|+880">🇧🇩 Bangladesh (+880)</option> <option value="Saudi Arabia|+966">🇸🇦 Saudi Arabia (+966)</option> <option value="UAE|+971">🇦🇪 UAE (+971)</option> </select>
+        </div>
+        <div><label for="customerPhone" class="block text-sm font-medium mb-2" style="color: var(--color-text-secondary);" data-translate="phone">Phone Number</label> <input type="tel" id="customerPhone" class="form-input" data-translate="phone_placeholder" placeholder="+91 1234567890" required>
+        </div>
+        <div><label for="customerAddress" class="block text-sm font-medium mb-2" style="color: var(--color-text-secondary);" data-translate="address">Shipping Address</label> <textarea id="customerAddress" class="form-input" rows="3" data-translate="address_placeholder" placeholder="Enter your complete address" required></textarea>
+        </div>
+       </div>
+      </div><!-- Payment Methods -->
+      <div class="mb-6">
+       <h3 class="font-semibold text-lg mb-4" style="color: var(--color-text-primary);" data-translate="payment_method">Payment Method</h3>
+       <div class="space-y-3">
+        <div class="payment-method" onclick="selectPaymentMethod('upi')">
+         <div class="payment-icon" style="background: linear-gradient(135deg, #60A630 0%, #78BE20 100%);">
+          💳
+         </div>
+         <div>
+          <div class="font-semibold" data-translate="upi_payment">
+           UPI Payment
+          </div>
+          <div class="text-sm" style="color: var(--color-text-secondary);" data-translate="upi_desc">
+           Pay via PhonePe, Paytm, Google Pay
+          </div>
+         </div>
+        </div>
+        <div class="payment-method" onclick="selectPaymentMethod('cod')">
+         <div class="payment-icon" style="background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);">
+          💵
+         </div>
+         <div>
+          <div class="font-semibold" data-translate="cod">
+           Cash on Delivery
+          </div>
+          <div class="text-sm" style="color: var(--color-text-secondary);" data-translate="cod_desc">
+           Pay when you receive
+          </div>
+         </div>
+        </div>
+       </div>
+      </div><!-- Order Summary -->
+      <div class="mb-6 p-4 rounded-lg" style="background: var(--color-bg-secondary);">
+       <h3 class="font-semibold mb-2" data-translate="order_summary">Order Summary</h3>
+       <div class="flex justify-between text-sm mb-2"><span data-translate="subtotal">Subtotal:</span> <span id="checkoutSubtotal">₹0</span>
+       </div>
+       <div class="flex justify-between text-sm mb-2"><span data-translate="shipping">Shipping:</span> <span class="text-green-600 font-medium" data-translate="shipping_free">FREE</span>
+       </div>
+       <div class="flex justify-between font-bold text-lg mt-3 pt-3" style="border-top: 1px solid var(--color-border);"><span data-translate="total">Total:</span> <span id="checkoutTotal" style="color: var(--color-accent-gold);">₹0</span>
+       </div>
+      </div><button class="btn-primary w-full" onclick="placeOrder()" id="placeOrderBtn"> <span id="placeOrderText" data-translate="place_order">Place Order</span> <span id="placeOrderSpinner" style="display: none;" class="spinner"></span> </button>
+     </div>
+    </div>
+   </div><!-- Tracking Modal -->
+   <div id="trackingModal" class="payment-modal">
+    <div class="payment-content">
+     <div style="padding: 2rem; border-bottom: 1px solid var(--color-border);">
+      <div class="flex justify-between items-center">
+       <h2 class="font-display text-2xl font-bold" style="color: var(--color-text-primary);" data-translate="track_title">Track Your Order</h2><button class="text-2xl" onclick="closeTrackingModal()" style="color: var(--color-text-primary);">✕</button>
+      </div>
+     </div>
+     <div style="padding: 2rem;">
+      <div class="mb-6"><label for="trackingId" class="block text-sm font-medium mb-2" style="color: var(--color-text-secondary);" data-translate="tracking_id">Enter Your Tracking ID</label> <input type="text" id="trackingId" class="form-input" data-translate="tracking_placeholder" placeholder="e.g., MEER-20240123-ABCD">
+      </div><button class="btn-primary w-full mb-6" onclick="trackOrder()" data-translate="track_button">Track Order</button>
+      <div id="trackingResult" style="display: none;">
+       <div class="mb-4 p-4 rounded-lg" style="background: var(--color-bg-secondary);">
+        <div class="flex justify-between mb-2"><span class="font-semibold" data-translate="order_id">Order ID:</span> <span id="trackedOrderId"></span>
+        </div>
+        <div class="flex justify-between mb-2"><span class="font-semibold" data-translate="product">Product:</span> <span id="trackedProduct"></span>
+        </div>
+        <div class="flex justify-between"><span class="font-semibold" data-translate="total">Total:</span> <span id="trackedTotal" style="color: var(--color-accent-gold);"></span>
+        </div>
+       </div>
+       <h3 class="font-semibold text-lg mb-4" data-translate="order_status">Order Status</h3>
+       <div id="trackingTimeline" class="tracking-timeline"></div>
+      </div>
+     </div>
+    </div>
+   </div><!-- Success Toast -->
+   <div id="successToast" style="position: fixed; bottom: 2rem; right: 2rem; background: var(--color-accent-gold); color: white; padding: 1rem 2rem; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); display: none; z-index: 400; font-weight: 600;"><span id="toastMessage"></span>
+   </div><!-- Cookie Consent Banner -->
+   <div id="cookieConsent" style="position: fixed; bottom: 0; left: 0; right: 0; background: var(--color-bg-primary); border-top: 2px solid var(--color-accent-gold); padding: 1.5rem; box-shadow: 0 -5px 30px rgba(0,0,0,0.2); display: none; z-index: 500; animation: slideUp 0.4s ease-out;">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+     <div class="flex items-start gap-3">
+      <div style="font-size: 2rem;">
+       🍪
+      </div>
+      <div>
+       <h4 class="font-semibold mb-1" style="color: var(--color-text-primary);">We use cookies</h4>
+       <p class="text-sm" style="color: var(--color-text-secondary);">We use cookies to enhance your browsing experience, provide personalized content, and analyze our traffic. By clicking "Accept All", you consent to our use of cookies.</p>
+      </div>
+     </div>
+     <div class="flex gap-3 flex-shrink-0"><button onclick="acceptCookies()" class="btn-primary" style="padding: 0.75rem 2rem; white-space: nowrap;">Accept All</button> <button onclick="acceptCookies()" class="btn-secondary" style="padding: 0.75rem 1.5rem; white-space: nowrap;">Reject</button>
+     </div>
+    </div>
+   </div><!-- Hero Section -->
+   <section id="hero" class="hero-section w-full py-32 px-6 relative">
+    <div class="hero-pattern"></div>
+    <div class="max-w-5xl mx-auto text-center relative z-10">
+     <div class="animate-fade-in"><span id="hero-badge" class="badge" data-translate="hero_badge">NEW COLLECTION AVAILABLE</span>
+     </div>
+     <h2 id="hero-title" class="font-display section-title mt-8 mb-6 animate-fade-in delay-1" style="color: var(--color-text-primary);" data-translate="hero_title">Elevate Your Spiritual Journey</h2>
+     <p id="hero-subtitle" class="section-subtitle mb-10 animate-fade-in delay-2" data-translate="hero_subtitle">Discover our curated collection of premium Islamic literature, carefully designed for reflection, growth, and daily connection with faith.</p><button id="hero-cta" class="btn-primary animate-fade-in delay-3" data-translate="hero_cta">Explore Collection</button>
+    </div>
+   </section><!-- Featured Products -->
+   <section id="collections" class="w-full py-20 px-6" style="background: var(--color-bg-secondary);">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-16">
+      <h3 class="font-display section-title" style="color: var(--color-text-primary);" data-translate="featured_title">Featured Collection</h3>
+      <div class="decorative-line"></div>
+      <p class="section-subtitle" data-translate="featured_subtitle">Authentic content, elegant presentation, lasting quality</p>
+     </div>
+     <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto"><!-- Book of Duas -->
+      <div id="duas" class="product-card-3d" onclick="openProductDetails('duas')">
+       <div class="book-image-container" style="width: 100%; height: 250px; margin-bottom: 1.5rem;"><img src="https://youngest-green-fu8q4xsp5s.edgeone.app/Screenshot_. .Chrome~2.png" alt="Duas of the Prophets" class="book-image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);" onerror="this.src=''; this.alt='Image failed to load'; this.style.display='none';">
+       </div>
+       <h4 class="font-display text-2xl font-bold mb-2" style="color: var(--color-accent-primary);">Duas of the Prophets</h4>
+       <p class="text-sm mb-4 italic" style="color: var(--color-text-secondary);">Whispers of the Chosen</p>
+       <div class="flex justify-between items-center mb-4"><span class="text-2xl font-bold" style="color: var(--color-accent-gold);">₹599</span> <span class="text-sm line-through" style="color: var(--color-text-secondary);">₹799</span>
+       </div>
+       <div class="flex flex-col sm:flex-row gap-3"><button class="btn-primary flex-1" onclick="event.stopPropagation(); buyNow('duas', 'Duas of the Prophets', 599);">Buy Now</button> <button class="btn-secondary flex-1" onclick="event.stopPropagation(); openProductDetails('duas');">View Details</button>
+       </div>
+      </div><!-- Surah Al-Kahf -->
+      <div id="surahs" class="product-card-3d">
+       <div class="book-image-container" style="width: 100%; height: 250px; margin-bottom: 1.5rem;">
+        <div class="book-image" style="width: 100%; height: 100%; background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-gold)); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: 700; border-radius: 8px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);">
+         Coming Soon
+        </div>
+       </div>
+       <h4 class="font-display text-2xl font-bold mb-3" style="color: var(--color-accent-primary);" data-translate="product_2_title">Surah Al-Kahf</h4>
+       <p class="text-sm mb-4" style="color: var(--color-text-secondary);" data-translate="product_2_desc">Premium edition for Friday reflection with translation and commentary</p>
+       <div class="flex justify-between items-center mb-4"><span class="text-2xl font-bold" style="color: var(--color-accent-gold);">₹699</span> <span class="text-sm line-through" style="color: var(--color-text-secondary);">₹899</span>
+       </div><button class="btn-secondary w-full" disabled style="opacity: 0.6; cursor: not-allowed;" data-translate="btn_coming_soon">Coming Soon</button>
+      </div>
+     </div>
+     <div class="text-center mt-16">
+      <p class="text-sm italic" style="color: var(--color-text-secondary);" data-translate="more_titles">More titles releasing soon...</p>
+     </div>
+    </div>
+   </section><!-- About Us -->
+   <section id="about" class="w-full py-20 px-6">
+    <div class="max-w-4xl mx-auto">
+     <div class="text-center mb-12">
+      <h3 class="font-display section-title" style="color: var(--color-text-primary);" data-translate="about_title">About Us</h3>
+      <div class="decorative-line"></div>
+     </div>
+     <div class="space-y-6 text-center" style="color: var(--color-text-secondary);">
+      <p class="text-lg leading-relaxed" data-translate="about_p1">Founded in 2026, MeerAzad was born from a simple intention — to bring timeless Islamic wisdom into modern lives with clarity, beauty, and purpose.</p>
+      <p class="text-lg leading-relaxed" data-translate="about_p2">We believe that sacred words deserve thoughtful presentation. Every MeerAzad book is designed to slow you down, invite reflection, and create a quiet space for connection in an increasingly noisy world.</p>
+      <p class="text-lg leading-relaxed" data-translate="about_p3">Our focus is not volume, but meaning. From carefully selected Surahs to heartfelt supplications, each publication is crafted with attention to authenticity, design, and longevity.</p>
+      <p class="text-lg leading-relaxed" data-translate="about_p4">MeerAzad stands for mindful reading, premium craftsmanship, and faith-led motivation — books you return to, not rush through.</p>
+      <p class="text-xl font-semibold mt-8" style="color: var(--color-accent-primary);" data-translate="about_closing">This is more than publishing.<br>
+        It is an invitation to reflect, reconnect, and grow.</p>
+      <p class="text-2xl font-display font-bold mt-6" style="color: var(--color-accent-gold);" data-translate="about_tagline">MeerAzad — Timeless faith. Thoughtfully printed.</p>
+     </div>
+    </div>
+   </section><!-- Why Choose Us -->
+   <section class="w-full py-20 px-6" style="background: var(--color-bg-secondary);">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-16">
+      <h3 class="font-display section-title" style="color: var(--color-text-primary);" data-translate="why_title">Why MeerAzad</h3>
+      <div class="decorative-line"></div>
+     </div>
+     <div class="grid md:grid-cols-4 gap-8">
+      <div class="feature-card">
+       <div class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style="background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-gold));">
+        📚
+       </div>
+       <h4 class="font-display text-xl font-bold mb-3" style="color: var(--color-accent-primary);" data-translate="feature_1_title">Authentic Sources</h4>
+       <p class="text-sm" style="color: var(--color-text-secondary);" data-translate="feature_1_desc">Verified content from trusted Islamic scholars and references</p>
+      </div>
+      <div class="feature-card">
+       <div class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style="background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-gold));">
+        ⭐
+       </div>
+       <h4 class="font-display text-xl font-bold mb-3" style="color: var(--color-accent-primary);" data-translate="feature_2_title">Premium Quality</h4>
+       <p class="text-sm" style="color: var(--color-text-secondary);" data-translate="feature_2_desc">High-grade materials and meticulous craftsmanship</p>
+      </div>
+      <div class="feature-card">
+       <div class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style="background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-gold));">
+        🎨
+       </div>
+       <h4 class="font-display text-xl font-bold mb-3" style="color: var(--color-accent-primary);" data-translate="feature_3_title">Timeless Design</h4>
+       <p class="text-sm" style="color: var(--color-text-secondary);" data-translate="feature_3_desc">Elegant layouts that enhance reading experience</p>
+      </div>
+      <div class="feature-card">
+       <div class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style="background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-gold));">
+        🌍
+       </div>
+       <h4 class="font-display text-xl font-bold mb-3" style="color: var(--color-accent-primary);" data-translate="feature_4_title">Global Community</h4>
+       <p class="text-sm" style="color: var(--color-text-secondary);" data-translate="feature_4_desc">Trusted by readers across the world</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Trust Stats -->
+   <section class="w-full py-20 px-6">
+    <div class="max-w-4xl mx-auto">
+     <div class="stats-card">
+      <h3 class="font-display text-4xl font-bold mb-4" data-translate="stats_title">Trusted Worldwide</h3>
+      <p class="text-6xl font-bold mb-4">100,000+</p>
+      <p class="text-xl mb-6" data-translate="stats_books">Books delivered to readers globally</p>
+      <div class="flex justify-center gap-2 text-3xl mb-4">
+       ★★★★★
+      </div>
+      <p class="text-lg" data-translate="stats_rating">Rated 5/5 by over 1,000 satisfied readers</p>
+     </div>
+    </div>
+   </section><!-- Contact Section -->
+   <section id="contact" class="w-full py-20 px-6" style="background: var(--color-bg-secondary);">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-16">
+      <h3 class="font-display section-title" style="color: var(--color-text-primary);" data-translate="contact_title">Contact Us</h3>
+      <div class="decorative-line"></div>
+      <p class="section-subtitle" data-translate="contact_subtitle">We'd love to hear from you. Reach out for inquiries, orders, or collaborations.</p>
+     </div>
+     <div class="grid md:grid-cols-2 gap-12">
+      <div>
+       <div class="feature-card text-left mb-6">
+        <div class="flex items-start gap-4 mb-4">
+         <div class="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style="background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-gold));">
+          ✉️
+         </div>
+         <div>
+          <h4 class="font-semibold mb-2" style="color: var(--color-text-primary);" data-translate="contact_email_label">Email</h4><a href="mailto:meerazadofficial@gmail.com" style="color: var(--color-accent-gold);">meerazadofficial@gmail.com</a>
+         </div>
+        </div>
+       </div>
+       <div class="feature-card text-left">
+        <div class="flex items-start gap-4">
+         <div class="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style="background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-gold));">
+          📍
+         </div>
+         <div>
+          <h4 class="font-semibold mb-2" style="color: var(--color-text-primary);" data-translate="contact_location_label">Location</h4>
+          <p style="color: var(--color-text-secondary);" data-translate="contact_location">India</p>
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="feature-card p-0 overflow-hidden" style="height: 400px;"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15282225.79979123!2d73.7250245393691!3d20.750301298405345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30635ff06b92b791%3A0xd78c4fa1854213a6!2sIndia!5e0!3m2!1sen!2s!4v1234567890123!5m2!1sen!2s" width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="MeerAzad Location Map"> </iframe>
+      </div>
+     </div>
+    </div>
+   </section><!-- Newsletter -->
+   <section class="w-full py-20 px-6">
+    <div class="max-w-4xl mx-auto text-center">
+     <h3 class="font-display section-title mb-4" style="color: var(--color-text-primary);" data-translate="newsletter_title">Stay Informed</h3>
+     <div class="decorative-line"></div>
+     <p class="section-subtitle mb-10" data-translate="newsletter_subtitle">Subscribe to receive updates on new releases, exclusive offers, and special editions</p>
+     <form class="flex flex-col md:flex-row gap-4 max-w-2xl mx-auto" onsubmit="handleNewsletterSubmit(event)"><label for="newsletter-email" class="sr-only" data-translate="newsletter_label">Email Address</label> <input type="email" id="newsletter-email" placeholder="Enter your email address" class="newsletter-input" required> <button type="submit" class="btn-primary" data-translate="newsletter_button">Subscribe</button>
+     </form>
+     <p id="newsletter-message" class="mt-6 text-sm font-semibold" style="color: var(--color-accent-gold); display: none;"></p>
+    </div>
+   </section><!-- Footer -->
+   <footer class="w-full py-16 px-6" style="background: var(--color-bg-primary); border-top: 1px solid var(--color-border);">
+    <div class="max-w-7xl mx-auto">
+     <div class="grid md:grid-cols-4 gap-12 mb-12">
+      <div>
+       <h4 class="font-display text-xl font-bold mb-4" style="color: var(--color-accent-primary);">MeerAzad</h4>
+       <p class="text-sm" style="color: var(--color-text-secondary);">Premium Islamic literature for the modern reader</p>
+      </div>
+      <div>
+       <h5 class="font-semibold mb-4" style="color: var(--color-text-primary);" data-translate="footer_explore">Explore</h5>
+       <div class="flex flex-col gap-2"><a href="#collections" class="text-sm" style="color: var(--color-text-secondary);" data-translate="footer_all_collections">All Collections</a> <a href="#surahs" class="text-sm" style="color: var(--color-text-secondary);" data-translate="footer_surah_series">Surah Series</a> <a href="#duas" class="text-sm" style="color: var(--color-text-secondary);" data-translate="footer_supplications">Supplications</a>
+       </div>
+      </div>
+      <div>
+       <h5 class="font-semibold mb-4" style="color: var(--color-text-primary);" data-translate="footer_support">Support</h5>
+       <div class="flex flex-col gap-2"><a href="#contact" class="text-sm" style="color: var(--color-text-secondary);" data-translate="footer_contact">Contact Us</a> <button onclick="openTrackingModal()" class="text-sm text-left" style="color: var(--color-text-secondary);" data-translate="footer_track">Track Order</button> <a href="#" class="text-sm" style="color: var(--color-text-secondary);" data-translate="footer_faq">FAQ</a>
+       </div>
+      </div>
+      <div>
+       <h5 class="font-semibold mb-4" style="color: var(--color-text-primary);" data-translate="footer_connect">Connect</h5>
+       <div class="flex gap-4 mb-4"><a href="#" class="w-10 h-10 rounded-full flex items-center justify-center" style="background: var(--color-accent-primary);"> 🐦 </a> <a href="#" class="w-10 h-10 rounded-full flex items-center justify-center" style="background: var(--color-accent-primary);"> 📷 </a>
+       </div>
+      </div>
+     </div>
+     <div class="pt-8 text-center" style="border-top: 1px solid var(--color-border);">
+      <p class="text-sm" style="color: var(--color-text-secondary);" data-translate="footer_rights">© 2026 MeerAzad Publishing. All rights reserved.</p>
+      <p class="text-xs mt-2" style="color: var(--color-text-secondary);"><span data-translate="footer_credit">Built &amp; Maintained by</span> <a href="https://www.innvox.in" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent-gold); font-weight: 600;">InnVox</a></p>
+     </div>
+    </div>
+   </footer>
+  </div>
+  <script>
+    const defaultConfig = {
+      background_color: '#ffffff',
+      surface_color: '#f8f6f3',
+      text_color: '#1a1a1a',
+      accent_primary: '#8b7355',
+      accent_gold: '#c9a961',
+      font_family: 'Inter',
+      font_size: 16,
+      brand_name: 'MeerAzad',
+      brand_tagline: 'Premium Islamic Literature',
+      hero_badge: 'NEW COLLECTION AVAILABLE',
+      hero_title: 'Elevate Your Spiritual Journey',
+      hero_subtitle: 'Discover our curated collection of premium Islamic literature, carefully designed for reflection, growth, and daily connection with faith.',
+      hero_cta: 'Explore Collection'
+    };
+
+    async function onConfigChange(config) {
+      const root = document.documentElement;
+      root.style.setProperty('--color-bg-primary', config.background_color || defaultConfig.background_color);
+      root.style.setProperty('--color-bg-secondary', config.surface_color || defaultConfig.surface_color);
+      root.style.setProperty('--color-text-primary', config.text_color || defaultConfig.text_color);
+      root.style.setProperty('--color-accent-primary', config.accent_primary || defaultConfig.accent_primary);
+      root.style.setProperty('--color-accent-gold', config.accent_gold || defaultConfig.accent_gold);
+
+      const customFont = config.font_family || defaultConfig.font_family;
+      const baseSize = config.font_size || defaultConfig.font_size;
+      
+      document.body.style.fontFamily = `${customFont}, sans-serif`;
+      document.body.style.fontSize = `${baseSize}px`;
+
+      document.getElementById('brand-name').textContent = config.brand_name || defaultConfig.brand_name;
+      document.getElementById('brand-tagline').textContent = config.brand_tagline || defaultConfig.brand_tagline;
+      document.getElementById('hero-badge').textContent = config.hero_badge || defaultConfig.hero_badge;
+      document.getElementById('hero-title').textContent = config.hero_title || defaultConfig.hero_title;
+      document.getElementById('hero-subtitle').textContent = config.hero_subtitle || defaultConfig.hero_subtitle;
+      document.getElementById('hero-cta').textContent = config.hero_cta || defaultConfig.hero_cta;
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => {
+              config.background_color = value;
+              window.elementSdk.setConfig({ background_color: value });
+            }
+          },
+          {
+            get: () => config.surface_color || defaultConfig.surface_color,
+            set: (value) => {
+              config.surface_color = value;
+              window.elementSdk.setConfig({ surface_color: value });
+            }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => {
+              config.text_color = value;
+              window.elementSdk.setConfig({ text_color: value });
+            }
+          },
+          {
+            get: () => config.accent_primary || defaultConfig.accent_primary,
+            set: (value) => {
+              config.accent_primary = value;
+              window.elementSdk.setConfig({ accent_primary: value });
+            }
+          },
+          {
+            get: () => config.accent_gold || defaultConfig.accent_gold,
+            set: (value) => {
+              config.accent_gold = value;
+              window.elementSdk.setConfig({ accent_gold: value });
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfig.font_family,
+          set: (value) => {
+            config.font_family = value;
+            window.elementSdk.setConfig({ font_family: value });
+          }
+        },
+        fontSizeable: {
+          get: () => config.font_size || defaultConfig.font_size,
+          set: (value) => {
+            config.font_size = value;
+            window.elementSdk.setConfig({ font_size: value });
+          }
+        }
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ['brand_name', config.brand_name || defaultConfig.brand_name],
+        ['brand_tagline', config.brand_tagline || defaultConfig.brand_tagline],
+        ['hero_badge', config.hero_badge || defaultConfig.hero_badge],
+        ['hero_title', config.hero_title || defaultConfig.hero_title],
+        ['hero_subtitle', config.hero_subtitle || defaultConfig.hero_subtitle],
+        ['hero_cta', config.hero_cta || defaultConfig.hero_cta]
+      ]);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+
+    // Cart System
+    let cart = JSON.parse(localStorage.getItem('meerazad_cart')) || [];
+    let selectedPaymentMethod = '';
+    let allOrders = [];
+    let currentProductSelection = {
+      id: '',
+      name: '',
+      price: 0,
+      cover: 'Classic',
+      quantity: 1
+    };
+
+    const dataHandler = {
+      onDataChanged(data) {
+        allOrders = data;
+      }
+    };
+
+    async function initDataSdk() {
+      if (window.dataSdk) {
+        const result = await window.dataSdk.init(dataHandler);
+        if (!result.isOk) {
+          console.error('Failed to initialize Data SDK');
+        }
+      }
+    }
+
+    initDataSdk();
+
+    function openProductDetails(productId) {
+      const products = {
+        duas: {
+          id: 'duas',
+          name: 'Duas of the Prophets',
+          subtitle: 'Whispers of the Chosen',
+          price: 599,
+          originalPrice: 799,
+          image: 'https://youngest-green-fu8q4xsp5s.edgeone.app/Screenshot_. .Chrome~2.png',
+          description: `The Book of Duas is a thoughtfully curated collection of supplications for everyday life — moments of ease and hardship, gratitude and need, reflection and renewal.
+
+Created to bring comfort, clarity, and connection, this book gathers authentic duas in a calm, accessible format, making it easy to turn to Allah in every situation. Each supplication is presented with care, allowing the reader to understand not just what is being recited, but why and when it may be read.
+
+Designed for both beginners and lifelong learners, The Book of Duas serves as a gentle guide through daily moments — before sleep, upon waking, during anxiety, gratitude, travel, illness, and hope. It encourages consistency in remembrance while nurturing sincerity and presence of heart.
+
+This is not simply a reference book, but a companion meant to stay close — by your bedside, in your bag, or on your prayer space — ready whenever the heart seeks words.
+
+Please be aware: if your country applies import taxes on books, kindly review our policy below.`,
+          specs: [
+            '38 Pages',
+            'Softback – Printed in full colour on premium uncoated paper',
+            'High-quality durable binding',
+            'Elegant, minimal layout for ease of reading',
+            'Compact and travel-friendly design',
+            'Carefully typeset for clarity and comfort'
+          ]
+        }
+      };
+
+      const product = products[productId];
+      if (!product) return;
+
+      currentProductSelection = {
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        cover: 'Classic',
+        quantity: 1
+      };
+
+      const detailsBody = document.getElementById('productDetailsBody');
+      detailsBody.innerHTML = `
+        <div class="grid md:grid-cols-2 gap-8 mb-8">
+          <div>
+            <img src="${product.image}" alt="${product.name}" style="width: 100%; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);" onerror="this.style.display='none';">
+          </div>
+          
+          <div>
+            <h3 class="font-display text-3xl font-bold mb-2" style="color: var(--color-accent-primary);">${product.name}</h3>
+            <p class="text-lg italic mb-4" style="color: var(--color-text-secondary);">${product.subtitle}</p>
+            
+            <div class="flex items-center gap-3 mb-4">
+              <span class="text-3xl font-bold" style="color: var(--color-accent-gold);">₹${product.price}</span>
+              <span class="text-lg line-through" style="color: var(--color-text-secondary);">₹${product.originalPrice}</span>
+              <span class="badge" style="font-size: 0.7rem; padding: 0.25rem 0.75rem;">25% OFF</span>
+            </div>
+            
+            <div class="in-stock-badge mb-6">
+              <span class="in-stock-dot"></span>
+              <span>In Stock</span>
+            </div>
+            
+            <div class="mb-6">
+              <label class="block font-semibold mb-3" style="color: var(--color-text-primary);">Select Cover</label>
+              <div class="grid grid-cols-2 gap-3">
+                <div class="cover-option selected" onclick="selectCover('Classic')">
+                  <div class="font-semibold mb-1">Classic</div>
+                  <div class="text-sm" style="color: var(--color-text-secondary);">Standard Edition</div>
+                </div>
+                <div class="cover-option" onclick="selectCover('Premium')">
+                  <div class="font-semibold mb-1">Premium</div>
+                  <div class="text-sm" style="color: var(--color-text-secondary);">Deluxe Edition</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mb-6">
+              <label class="block font-semibold mb-3" style="color: var(--color-text-primary);">Select Quantity</label>
+              <div class="quantity-control" style="display: inline-flex; width: auto;">
+                <button class="quantity-btn" onclick="updateProductQuantity(-1)">−</button>
+                <span id="productQuantity" style="min-width: 3rem; text-align: center; font-weight: 600; padding: 0 1rem;">1</span>
+                <button class="quantity-btn" onclick="updateProductQuantity(1)">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mb-8">
+          <h4 class="font-semibold text-xl mb-4" style="color: var(--color-text-primary);">Product Description</h4>
+          <div style="color: var(--color-text-secondary); white-space: pre-line; line-height: 1.8;">
+            ${product.description}
+          </div>
+        </div>
+        
+        <div class="mb-8">
+          <h4 class="font-semibold text-xl mb-4" style="color: var(--color-text-primary);">Product Details</h4>
+          <ul style="color: var(--color-text-secondary); list-style: disc; padding-left: 1.5rem; line-height: 2;">
+            ${product.specs.map(spec => `<li>${spec}</li>`).join('')}
+          </ul>
+        </div>
+        
+        <div class="mb-8 p-6 rounded-lg" style="background: var(--color-bg-secondary); border: 1px solid var(--color-border);">
+          <h4 class="font-semibold text-xl mb-3" style="color: var(--color-text-primary);">Customer Reviews</h4>
+          <div class="flex items-center gap-2 mb-3">
+            <span style="font-size: 2rem; color: var(--color-accent-gold);">★★★★★</span>
+            <span class="font-semibold" style="color: var(--color-text-primary);">5.0</span>
+          </div>
+          <p style="color: var(--color-text-secondary);">Loved by readers worldwide for its clarity, beauty, and usefulness in daily life.</p>
+          <p class="text-sm mt-3 italic" style="color: var(--color-text-secondary);">Be the first to write a review</p>
+        </div>
+      `;
+
+      document.getElementById('productDetailsModal').classList.add('active');
+      document.getElementById('mobileOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeProductDetails() {
+      document.getElementById('productDetailsModal').classList.remove('active');
+      document.getElementById('mobileOverlay').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function selectCover(cover) {
+      currentProductSelection.cover = cover;
+      document.querySelectorAll('.cover-option').forEach(el => el.classList.remove('selected'));
+      event.target.closest('.cover-option').classList.add('selected');
+    }
+
+    function updateProductQuantity(change) {
+      currentProductSelection.quantity = Math.max(1, currentProductSelection.quantity + change);
+      document.getElementById('productQuantity').textContent = currentProductSelection.quantity;
+    }
+
+    function addProductToCart() {
+      const fullName = `${currentProductSelection.name} (${currentProductSelection.cover})`;
+      addToCart(currentProductSelection.id, fullName, currentProductSelection.price, null, currentProductSelection.quantity);
+      closeProductDetails();
+      showToast('Added to cart!');
+    }
+
+    function buyProductNow() {
+      const fullName = `${currentProductSelection.name} (${currentProductSelection.cover})`;
+      cart = [{ id: currentProductSelection.id, name: fullName, price: currentProductSelection.price, quantity: currentProductSelection.quantity }];
+      saveCart();
+      closeProductDetails();
+      openCart();
+      setTimeout(() => {
+        proceedToCheckout();
+      }, 500);
+    }
+
+    function closeAllModals() {
+      closeProductDetails();
+      closePaymentModal();
+      closeTrackingModal();
+    }
+
+    function updateCartBadge() {
+      const badge = document.getElementById('cart-badge');
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      if (totalItems > 0) {
+        badge.textContent = totalItems;
+        badge.style.display = 'flex';
+      } else {
+        badge.style.display = 'none';
+      }
+    }
+
+    function saveCart() {
+      localStorage.setItem('meerazad_cart', JSON.stringify(cart));
+      updateCartBadge();
+    }
+
+    function addToCart(id, name, price, image, quantity = 1) {
+      const existing = cart.find(item => item.id === id && item.name === name);
+      if (existing) {
+        existing.quantity += quantity;
+      } else {
+        cart.push({ id, name, price, image, quantity });
+      }
+      saveCart();
+      renderCart();
+    }
+
+    function buyNow(id, name, price) {
+      cart = [{ id, name, price, quantity: 1 }];
+      saveCart();
+      openCart();
+      setTimeout(() => {
+        proceedToCheckout();
+      }, 500);
+    }
+
+    function removeFromCart(id, name) {
+      cart = cart.filter(item => !(item.id === id && item.name === name));
+      saveCart();
+      renderCart();
+    }
+
+    function updateQuantity(id, name, change) {
+      const item = cart.find(item => item.id === id && item.name === name);
+      if (item) {
+        item.quantity += change;
+        if (item.quantity <= 0) {
+          removeFromCart(id, name);
+        } else {
+          saveCart();
+          renderCart();
+        }
+      }
+    }
+
+    function renderCart() {
+      const cartItems = document.getElementById('cartItems');
+      const cartTotal = document.getElementById('cartTotal');
+      const trans = translations[currentLang] || translations.en;
+      
+      if (cart.length === 0) {
+        cartItems.innerHTML = `
+          <div style="padding: 4rem 2rem; text-align: center; color: var(--color-text-secondary);">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">📚</div>
+            <h3 class="font-semibold text-lg mb-2">${trans.cart_empty || 'Your cart is empty'}</h3>
+            <p class="text-sm">${trans.cart_empty_desc || 'Add some books to get started!'}</p>
+          </div>
+        `;
+        cartTotal.textContent = '₹0';
+        return;
+      }
+
+      const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      
+      cartItems.innerHTML = cart.map(item => `
+        <div class="cart-item">
+          ${item.image ? `<img src="${item.image}" alt="${item.name}" class="cart-item-image">` : `<div class="cart-item-image" style="display: flex; align-items: center; justify-content: center; font-size: 2rem;">📖</div>`}
+          <div style="flex: 1;">
+            <h4 class="font-semibold mb-2" style="color: var(--color-text-primary);">${item.name}</h4>
+            <p class="text-sm mb-3" style="color: var(--color-accent-gold); font-weight: 600;">₹${item.price}</p>
+            <div class="flex items-center justify-between">
+              <div class="quantity-control">
+                <button class="quantity-btn" onclick="updateQuantity('${item.id}', '${item.name}', -1)">−</button>
+                <span style="min-width: 2rem; text-align: center; font-weight: 600;">${item.quantity}</span>
+                <button class="quantity-btn" onclick="updateQuantity('${item.id}', '${item.name}', 1)">+</button>
+              </div>
+              <button onclick="removeFromCart('${item.id}', '${item.name}')" style="color: var(--color-text-secondary); font-size: 0.875rem;">${trans.cart_remove || 'Remove'}</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+      
+      cartTotal.textContent = `₹${total}`;
+    }
+
+    function openCart() {
+      renderCart();
+      document.getElementById('cartSidebar').classList.add('active');
+      document.getElementById('mobileOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCart() {
+      document.getElementById('cartSidebar').classList.remove('active');
+      if (!document.getElementById('paymentModal').classList.contains('active') && 
+          !document.getElementById('trackingModal').classList.contains('active') &&
+          !document.getElementById('productDetailsModal').classList.contains('active')) {
+        document.getElementById('mobileOverlay').classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    function proceedToCheckout() {
+      if (cart.length === 0) {
+        showToast('Your cart is empty!');
+        return;
+      }
+      
+      const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      document.getElementById('checkoutSubtotal').textContent = `₹${total}`;
+      document.getElementById('checkoutTotal').textContent = `₹${total}`;
+      
+      closeCart();
+      document.getElementById('paymentModal').classList.add('active');
+      document.getElementById('mobileOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePaymentModal() {
+      document.getElementById('paymentModal').classList.remove('active');
+      if (!document.getElementById('trackingModal').classList.contains('active') &&
+          !document.getElementById('productDetailsModal').classList.contains('active')) {
+        document.getElementById('mobileOverlay').classList.remove('active');
+        document.body.style.overflow = '';
+      }
+      selectedPaymentMethod = '';
+      document.querySelectorAll('.payment-method').forEach(el => el.classList.remove('selected'));
+    }
+
+    function selectPaymentMethod(method) {
+      selectedPaymentMethod = method;
+      document.querySelectorAll('.payment-method').forEach(el => el.classList.remove('selected'));
+      event.target.closest('.payment-method').classList.add('selected');
+    }
+
+    function updatePhonePlaceholder() {
+      const countrySelect = document.getElementById('customerCountry');
+      const phoneInput = document.getElementById('customerPhone');
+      
+      if (countrySelect.value) {
+        const [country, code] = countrySelect.value.split('|');
+        phoneInput.placeholder = `${code} 1234567890`;
+      }
+    }
+
+    async function placeOrder() {
+      const name = document.getElementById('customerName').value.trim();
+      const email = document.getElementById('customerEmail').value.trim();
+      const countryValue = document.getElementById('customerCountry').value;
+      const phone = document.getElementById('customerPhone').value.trim();
+      const address = document.getElementById('customerAddress').value.trim();
+
+      if (!name || !email || !countryValue || !phone || !address) {
+        showToast('Please fill all delivery details');
+        return;
+      }
+
+      if (!selectedPaymentMethod) {
+        showToast('Please select a payment method');
+        return;
+      }
+
+      const [country, countryCode] = countryValue.split('|');
+
+      const btn = document.getElementById('placeOrderBtn');
+      const btnText = document.getElementById('placeOrderText');
+      const btnSpinner = document.getElementById('placeOrderSpinner');
+      
+      btn.classList.add('btn-loading');
+      btn.disabled = true;
+      btnText.style.display = 'none';
+      btnSpinner.style.display = 'inline-block';
+
+      const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      const trackingId = `MEER-${new Date().getFullYear()}${String(new Date().getMonth() + 1).padStart(2, '0')}${String(new Date().getDate()).padStart(2, '0')}-${Math.random().toString(36).substr(2, 4).toUpperCase()}`;
+      
+      const orderData = {
+        id: trackingId,
+        product_id: cart.map(item => item.id).join(','),
+        product_name: cart.map(item => `${item.name} (x${item.quantity})`).join(', '),
+        price: total,
+        quantity: cart.reduce((sum, item) => sum + item.quantity, 0),
+        total: total,
+        customer_name: name,
+        customer_email: email,
+        customer_country: country,
+        customer_phone: phone,
+        customer_address: address,
+        payment_method: selectedPaymentMethod,
+        payment_status: selectedPaymentMethod === 'cod' ? 'Pending' : 'Completed',
+        order_status: 'Order Placed',
+        tracking_id: trackingId,
+        order_date: new Date().toISOString()
+      };
+
+      if (window.dataSdk && allOrders.length < 999) {
+        const result = await window.dataSdk.create(orderData);
+        
+        if (result.isOk) {
+          cart = [];
+          saveCart();
+          
+          btn.classList.remove('btn-loading');
+          btn.disabled = false;
+          btnText.style.display = 'inline';
+          btnSpinner.style.display = 'none';
+          
+          closePaymentModal();
+          
+          showToast(`Order placed successfully! Tracking ID: ${trackingId}`);
+          
+          document.getElementById('customerName').value = '';
+          document.getElementById('customerEmail').value = '';
+          document.getElementById('customerCountry').value = '';
+          document.getElementById('customerPhone').value = '';
+          document.getElementById('customerAddress').value = '';
+          
+          setTimeout(() => {
+            document.getElementById('trackingId').value = trackingId;
+            openTrackingModal();
+            trackOrder();
+          }, 2000);
+        } else {
+          btn.classList.remove('btn-loading');
+          btn.disabled = false;
+          btnText.style.display = 'inline';
+          btnSpinner.style.display = 'none';
+          showToast('Order placement failed. Please try again.');
+        }
+      } else if (allOrders.length >= 999) {
+        btn.classList.remove('btn-loading');
+        btn.disabled = false;
+        btnText.style.display = 'inline';
+        btnSpinner.style.display = 'none';
+        showToast('Order limit reached. Please contact support.');
+      } else {
+        btn.classList.remove('btn-loading');
+        btn.disabled = false;
+        btnText.style.display = 'inline';
+        btnSpinner.style.display = 'none';
+        showToast('Data system not available');
+      }
+    }
+
+    function openTrackingModal() {
+      document.getElementById('trackingModal').classList.add('active');
+      document.getElementById('trackingResult').style.display = 'none';
+      document.getElementById('mobileOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeTrackingModal() {
+      document.getElementById('trackingModal').classList.remove('active');
+      if (!document.getElementById('paymentModal').classList.contains('active') &&
+          !document.getElementById('productDetailsModal').classList.contains('active')) {
+        document.getElementById('mobileOverlay').classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    function trackOrder() {
+      const trackingId = document.getElementById('trackingId').value.trim();
+      const trans = translations[currentLang] || translations.en;
+      
+      if (!trackingId) {
+        showToast('Please enter a tracking ID');
+        return;
+      }
+
+      const order = allOrders.find(o => o.tracking_id === trackingId || o.id === trackingId);
+      
+      if (order) {
+        document.getElementById('trackedOrderId').textContent = order.tracking_id || order.id;
+        document.getElementById('trackedProduct').textContent = order.product_name;
+        document.getElementById('trackedTotal').textContent = `₹${order.total}`;
+        
+        const statuses = [
+          trans.status_placed || 'Order Placed',
+          trans.status_processing || 'Processing',
+          trans.status_shipped || 'Shipped',
+          trans.status_delivery || 'Out for Delivery',
+          trans.status_delivered || 'Delivered'
+        ];
+        
+        const currentStatusIndex = statuses.findIndex(s => 
+          s === order.order_status || 
+          s.toLowerCase() === order.order_status.toLowerCase() ||
+          (order.order_status === 'Order Placed' && s === statuses[0])
+        );
+        
+        const timeline = document.getElementById('trackingTimeline');
+        timeline.innerHTML = statuses.map((status, index) => {
+          let className = 'tracking-step';
+          if (index < currentStatusIndex) className += ' completed';
+          if (index === currentStatusIndex) className += ' active';
+          
+          return `
+            <div class="${className}">
+              <h4 class="font-semibold mb-1" style="color: var(--color-text-primary);">${status}</h4>
+              <p class="text-sm" style="color: var(--color-text-secondary);">
+                ${index <= currentStatusIndex ? new Date(order.order_date).toLocaleDateString() : (trans.status_pending || 'Pending')}
+              </p>
+            </div>
+          `;
+        }).join('');
+        
+        document.getElementById('trackingResult').style.display = 'block';
+      } else {
+        showToast('Order not found. Please check your tracking ID.');
+      }
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('successToast');
+      const toastMessage = document.getElementById('toastMessage');
+      toastMessage.textContent = message;
+      toast.style.display = 'block';
+      
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 4000);
+    }
+
+    // Translation system
+    const translations = {
+      en: {
+        nav_home: 'Home',
+        nav_collections: 'Collections',
+        nav_about: 'About',
+        nav_contact: 'Contact',
+        nav_cart: 'Cart',
+        track_order: 'Track Order',
+        hero_badge: 'NEW COLLECTION AVAILABLE',
+        hero_title: 'Elevate Your Spiritual Journey',
+        hero_subtitle: 'Discover our curated collection of premium Islamic literature, carefully designed for reflection, growth, and daily connection with faith.',
+        hero_cta: 'Explore Collection',
+        featured_title: 'Featured Collection',
+        featured_subtitle: 'Authentic content, elegant presentation, lasting quality',
+        product_2_title: 'Surah Al-Kahf',
+        product_2_desc: 'Premium edition for Friday reflection with translation and commentary',
+        btn_coming_soon: 'Coming Soon',
+        more_titles: 'More titles releasing soon...',
+        about_title: 'About Us',
+        about_p1: 'Founded in 2026, MeerAzad was born from a simple intention — to bring timeless Islamic wisdom into modern lives with clarity, beauty, and purpose.',
+        about_p2: 'We believe that sacred words deserve thoughtful presentation. Every MeerAzad book is designed to slow you down, invite reflection, and create a quiet space for connection in an increasingly noisy world.',
+        about_p3: 'Our focus is not volume, but meaning. From carefully selected Surahs to heartfelt supplications, each publication is crafted with attention to authenticity, design, and longevity.',
+        about_p4: 'MeerAzad stands for mindful reading, premium craftsmanship, and faith-led motivation — books you return to, not rush through.',
+        about_closing: 'This is more than publishing.<br>It is an invitation to reflect, reconnect, and grow.',
+        about_tagline: 'MeerAzad — Timeless faith. Thoughtfully printed.',
+        why_title: 'Why MeerAzad',
+        feature_1_title: 'Authentic Sources',
+        feature_1_desc: 'Verified content from trusted Islamic scholars and references',
+        feature_2_title: 'Premium Quality',
+        feature_2_desc: 'High-grade materials and meticulous craftsmanship',
+        feature_3_title: 'Timeless Design',
+        feature_3_desc: 'Elegant layouts that enhance reading experience',
+        feature_4_title: 'Global Community',
+        feature_4_desc: 'Trusted by readers across the world',
+        stats_title: 'Trusted Worldwide',
+        stats_books: 'Books delivered to readers globally',
+        stats_rating: 'Rated 5/5 by over 1,000 satisfied readers',
+        contact_title: 'Contact Us',
+        contact_subtitle: 'We\'d love to hear from you. Reach out for inquiries, orders, or collaborations.',
+        contact_email_label: 'Email',
+        contact_location_label: 'Location',
+        contact_location: 'India',
+        newsletter_title: 'Stay Informed',
+        newsletter_subtitle: 'Subscribe to receive updates on new releases, exclusive offers, and special editions',
+        newsletter_label: 'Email Address',
+        newsletter_button: 'Subscribe',
+        newsletter_success: 'Thank you for subscribing! You will receive updates on new releases.',
+        footer_explore: 'Explore',
+        footer_all_collections: 'All Collections',
+        footer_surah_series: 'Surah Series',
+        footer_supplications: 'Supplications',
+        footer_support: 'Support',
+        footer_contact: 'Contact Us',
+        footer_track: 'Track Order',
+        footer_faq: 'FAQ',
+        footer_connect: 'Connect',
+        footer_rights: '© 2026 MeerAzad Publishing. All rights reserved.',
+        footer_credit: 'Built & Maintained by',
+        cart_title: 'Shopping Cart',
+        cart_empty: 'Your cart is empty',
+        cart_empty_desc: 'Add some books to get started!',
+        cart_total: 'Total:',
+        cart_checkout: 'Proceed to Checkout',
+        cart_remove: 'Remove',
+        checkout_title: 'Checkout',
+        delivery_info: 'Delivery Information',
+        full_name: 'Full Name',
+        full_name_placeholder: 'Enter your full name',
+        email: 'Email',
+        email_placeholder: 'your.email@example.com',
+        phone: 'Phone Number',
+        phone_placeholder: '+91 1234567890',
+        country: 'Country',
+        country_placeholder: 'Select your country',
+        address: 'Shipping Address',
+        address_placeholder: 'Enter your complete address',
+        payment_method: 'Payment Method',
+        upi_payment: 'UPI Payment',
+        upi_desc: 'Pay via PhonePe, Paytm, Google Pay',
+        cod: 'Cash on Delivery',
+        cod_desc: 'Pay when you receive',
+        order_summary: 'Order Summary',
+        subtotal: 'Subtotal:',
+        shipping: 'Shipping:',
+        shipping_free: 'FREE',
+        total: 'Total:',
+        place_order: 'Place Order',
+        track_title: 'Track Your Order',
+        tracking_id: 'Enter Your Tracking ID',
+        tracking_placeholder: 'e.g., MEER-20240123-ABCD',
+        track_button: 'Track Order',
+        order_id: 'Order ID:',
+        product: 'Product:',
+        order_status: 'Order Status',
+        status_placed: 'Order Placed',
+        status_processing: 'Processing',
+        status_shipped: 'Shipped',
+        status_delivery: 'Out for Delivery',
+        status_delivered: 'Delivered',
+        status_pending: 'Pending'
+      },
+      ur: {
+        nav_home: 'ہوم',
+        nav_collections: 'کلیکشنز',
+        nav_about: 'ہمارے بارے میں',
+        nav_contact: 'رابطہ کریں',
+        nav_cart: 'کارٹ',
+        track_order: 'آرڈر ٹریک کریں',
+        hero_badge: 'نئی کلیکشن دستیاب',
+        hero_title: 'اپنے روحانی سفر کو بلند کریں',
+        hero_subtitle: 'اسلامی ادب کا ہمارا منتخب مجموعہ دریافت کریں، جو غور و فکر، ترقی اور ایمان کے ساتھ روزانہ تعلق کے لیے احتیاط سے ڈیزائن کیا گیا ہے۔',
+        hero_cta: 'کلیکشن دیکھیں',
+        featured_title: 'نمایاں کلیکشن',
+        featured_subtitle: 'مستند مواد، خوبصورت پیشکش، دیرپا معیار',
+        product_2_title: 'سورۃ الکہف',
+        product_2_desc: 'جمعہ کی تلاوت کے لیے پریمیم ایڈیشن ترجمہ اور تفسیر کے ساتھ',
+        btn_coming_soon: 'جلد آرہا ہے',
+        more_titles: 'مزید عنوانات جلد آرہے ہیں...',
+        about_title: 'ہمارے بارے میں',
+        cart_empty: 'آپ کا کارٹ خالی ہے',
+        cart_empty_desc: 'شروع کرنے کے لیے کچھ کتابیں شامل کریں!',
+        cart_remove: 'ہٹائیں'
+      },
+      ar: {
+        nav_home: 'الرئيسية',
+        nav_collections: 'المجموعات',
+        nav_about: 'معلومات عنا',
+        nav_contact: 'اتصل بنا',
+        nav_cart: 'السلة',
+        track_order: 'تتبع الطلب',
+        hero_badge: 'مجموعة جديدة متاحة',
+        hero_title: 'ارتق برحلتك الروحية',
+        hero_subtitle: 'اكتشف مجموعتنا المختارة من الأدب الإسلامي الفاخر، المصممة بعناية للتأمل والنمو والتواصل اليومي مع الإيمان.',
+        hero_cta: 'استكشف المجموعة',
+        featured_title: 'المجموعة المميزة',
+        featured_subtitle: 'محتوى أصيل، عرض أنيق، جودة دائمة',
+        product_2_title: 'سورة الكهف',
+        product_2_desc: 'طبعة فاخرة للتلاوة يوم الجمعة مع الترجمة والتفسير',
+        btn_coming_soon: 'قريباً',
+        more_titles: 'المزيد من العناوين قريباً...',
+        about_title: 'معلومات عنا',
+        cart_empty: 'سلتك فارغة',
+        cart_empty_desc: 'أضف بعض الكتب للبدء!',
+        cart_remove: 'إزالة'
+      }
+    };
+
+    let currentLang = 'en';
+    
+    function applyTranslations(langCode) {
+      currentLang = langCode;
+      const trans = translations[langCode] || translations.en;
+      const elements = document.querySelectorAll('[data-translate]');
+      
+      elements.forEach(element => {
+        const key = element.getAttribute('data-translate');
+        if (trans[key]) {
+          if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+            element.placeholder = trans[key];
+          } else if (element.tagName === 'SELECT') {
+            // Skip select elements
+          } else {
+            element.innerHTML = trans[key];
+          }
+        }
+      });
+      
+      const rtlLanguages = ['ar', 'ur'];
+      if (rtlLanguages.includes(langCode)) {
+        document.documentElement.setAttribute('dir', 'rtl');
+      } else {
+        document.documentElement.setAttribute('dir', 'ltr');
+      }
+      
+      renderCart();
+    }
+
+    function toggleLanguageDropdown() {
+      const dropdown = document.getElementById('languageDropdown');
+      dropdown.classList.toggle('active');
+    }
+
+    function selectLanguage(language, code) {
+      document.getElementById('currentLanguage').textContent = language;
+      const options = document.querySelectorAll('.language-option');
+      options.forEach(opt => opt.classList.remove('active'));
+      event.target.classList.add('active');
+      toggleLanguageDropdown();
+      
+      applyTranslations(code);
+      localStorage.setItem('language', code);
+    }
+
+    const savedLanguage = localStorage.getItem('language') || 'en';
+    if (savedLanguage !== 'en') {
+      const langNames = {
+        en: 'English', ur: 'اردو', ar: 'العربية'
+      };
+      document.getElementById('currentLanguage').textContent = langNames[savedLanguage];
+      applyTranslations(savedLanguage);
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.language-selector')) {
+        document.getElementById('languageDropdown').classList.remove('active');
+      }
+    });
+
+    function openMobileMenu() {
+      document.getElementById('mobileMenu').classList.add('active');
+      document.getElementById('mobileOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobileMenu() {
+      document.getElementById('mobileMenu').classList.remove('active');
+      if (!document.getElementById('cartSidebar').classList.contains('active') &&
+          !document.getElementById('paymentModal').classList.contains('active') &&
+          !document.getElementById('trackingModal').classList.contains('active') &&
+          !document.getElementById('productDetailsModal').classList.contains('active')) {
+        document.getElementById('mobileOverlay').classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    const navbar = document.querySelector('.navbar');
+    const app = document.getElementById('app');
+    
+    app.addEventListener('scroll', () => {
+      if (app.scrollTop > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(anchor.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+          closeMobileMenu();
+        }
+      });
+    });
+
+    function handleNewsletterSubmit(e) {
+      e.preventDefault();
+      const message = document.getElementById('newsletter-message');
+      const input = document.getElementById('newsletter-email');
+      const trans = translations[currentLang] || translations.en;
+      
+      message.textContent = trans.newsletter_success || 'Thank you for subscribing! You will receive updates on new releases.';
+      message.style.display = 'block';
+      input.value = '';
+      
+      setTimeout(() => {
+        message.style.display = 'none';
+      }, 5000);
+    }
+
+    document.getElementById('hero-cta').addEventListener('click', () => {
+      document.getElementById('collections').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    updateCartBadge();
+
+    function showCookieConsent() {
+      const consent = localStorage.getItem('cookieConsent');
+      if (!consent) {
+        setTimeout(() => {
+          document.getElementById('cookieConsent').style.display = 'block';
+        }, 1000);
+      }
+    }
+
+    function acceptCookies() {
+      localStorage.setItem('cookieConsent', 'accepted');
+      const banner = document.getElementById('cookieConsent');
+      banner.style.animation = 'slideUp 0.4s ease-out reverse';
+      setTimeout(() => {
+        banner.style.display = 'none';
+      }, 400);
+    }
+
+    showCookieConsent();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9bd6fb4b11dbc795',t:'MTc2ODMyOTIwMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
